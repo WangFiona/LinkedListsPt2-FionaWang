@@ -13,8 +13,15 @@ using namespace std;
 class Student{
  public:
   //Initializing student variables and functions
-  Student(char* newName);
-  char* name;
-  char* getName();
+  Student(char* newFirst, char* newLast, int newId, float newGpa);
+  char* first;
+  char* last;
+  int id;
+  float gpa;
+  
+  char* getFirst();
+  char* getLast();
+  char* getId();
+  char* getGpa();
 };
 #endif

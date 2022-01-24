@@ -11,7 +11,7 @@ using namespace std;
  * by printing out the names of three students
  */
 
-int main(){
+/*int main(){
   //Initializing the students
   char* name = new char[20];
   strcpy(name, "Helen");
@@ -24,21 +24,22 @@ int main(){
   //Initializing the node, setting, and printing the first student
   Node* head = NULL;
   head = new Node(student1);
-  head->setStudent(student1);
+  //head->setStudent(student1);
   cout << "Student Names:" << endl;
   cout << head->getStudent() << endl;
 
   //Setting and printing the second student
   Node* current = head;
   current->setNext(new Node(student2));
-  current->getNext()->setStudent(student2);
+  //current->getNext()->setStudent(student2);
   cout << head->getNext()->getStudent() << endl;
 
   //Setting and printing the third student
   current = current->getNext();
   current->setNext(new Node(student3));
-  current->getNext()->setStudent(student3);
-  cout << head->getNext()->getNext()->getStudent() << endl;
+  //current->getNext()->setStudent(student3);
+  cout << head->getNext()->getNext()->getStudent()->getName() << endl;
   
   return 0;
 }
+*/
