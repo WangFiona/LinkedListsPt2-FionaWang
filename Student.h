@@ -21,7 +21,7 @@ class Student{
   
   char* getFirst();
   char* getLast();
-  char* getId();
-  char* getGpa();
+  int getId();
+  float getGpa();
 };
 #endif

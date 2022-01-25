@@ -1,5 +1,5 @@
-#include "Node.h"
-#include "Student.h"
+#include "node.h"
+#include "student.h"
 
 //Constructor
 Node::Node(Student* newStudent){
