@@ -7,10 +7,10 @@ using namespace std;
 /* 
  * Author: Fiona Wang
  * Date: January 11, 2022
- * This is the student cpp file
+ * This file is the implementation of the student class
  */
 
-//Creating and setting student variables
+//Constructor
 Student::Student(char* newFirst, char* newLast, int newId, float newGpa){
   first = new char[15];
   strcpy(first, newFirst);
@@ -20,20 +20,22 @@ Student::Student(char* newFirst, char* newLast, int newId, float newGpa){
   gpa=newGpa;
 }
 
-//Getting the student's name
+//Getting the student's first name
 char* Student::getFirst(){
   return first;
 }
 
-//Getting the student's name
+//Getting the student's last name
 char* Student::getLast(){
   return last;
 }
 
+//Getting the student's ID
 int Student::getId(){
   return id;
 }
 
+//Getting the student's GPA
 float Student::getGpa(){
   return gpa;
 }

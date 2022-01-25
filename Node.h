@@ -3,7 +3,14 @@
 #define NODE_H
 #include <iostream>
 #include "student.h"
+
 using namespace std;
+
+/*
+ * Author: Jeffrey Teh
+ * Date: January 20, 2022
+ * This file is the interface for the node class
+ */
 
 class Node{
   //Student to be set by constructor

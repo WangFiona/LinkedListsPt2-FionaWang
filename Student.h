@@ -7,7 +7,8 @@ using namespace std;
 /*
  * Author: Fiona Wang
  * Date: January 11, 2022
- * This is the student header file and just contains the student's name
+ * This file is the interface for the student class
+ * It includes the name, ID, and GPA of the student
  */
 
 class Student{

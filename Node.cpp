@@ -1,6 +1,12 @@
 #include "node.h"
 #include "student.h"
 
+/* 
+ * Author: Jeffrey Teh
+ * Date: January 20, 2022
+ * This file is the implementation of the node class
+ */
+
 //Constructor
 Node::Node(Student* newStudent){
   //Setting the node's student to the inputted student
@@ -9,8 +15,9 @@ Node::Node(Student* newStudent){
   next = NULL;
 }
 
+//Destructor
 Node::~Node(){
-  cout << "You're Deleting ... " << endl;
+  cout << "You are deleting ... " << endl;
   //Deleting the node's student
   delete NodeStudent;
   //Setting the next node to null

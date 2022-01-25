@@ -177,40 +177,43 @@ void delet(Node * &head, Node * prev, Node * curr, int id) {
     cout << "There are no students in the database" << endl;
   }
   else if(id == curr->getStudent()->getId()){ //Once the matching ID is found
-    if(head->getNext()==NULL){
+    if(head->getNext()==NULL){ //If there is only one student
       delete curr;
       head=NULL;
     }
-    else if(head==curr){
+    else if(head==curr){ //Deleting the first student
       curr = head->getNext();
       delete head;
       head=curr;
     }
-    else if(curr!=NULL){
+    else if(curr!=NULL){ //Deleting students that are not the first
       Node* temp = curr->getNext();
       delete curr;
       prev->setNext(temp);
     }
   }
-  else{
+  else{ //Use recursion to search the list
     delet(head, curr, curr->getNext(), id);
   }
 }
 
+//Function for finding the average GPA
 void average(Node * head, Node * curr, float averag, int count) {
-  if(head==NULL){
+  if(head==NULL){ //If the database is empty
     cout << "The database is empty" << endl;
-  } else if(head->getNext()==NULL){
+  } else if(head->getNext()==NULL){ //If there is only one student
+    //Rounding the GPA
     cout.setf(ios::fixed, ios::floatfield);
     cout.setf(ios::showpoint);
     cout.precision(2);
     cout << "Average GPA: " << curr->getStudent()->getGpa() << endl;
-  } else if(curr==NULL){
+  } else if(curr==NULL){ //If there is more than one student
+    //Rounding the GPA
     cout.setf(ios::fixed, ios::floatfield);
     cout.setf(ios::showpoint);
     cout.precision(2);
     cout << "Average GPA: " << averag/count << endl;
-  } else {
+  } else { //Use recursion to add up all of the GPAs
     count++;
     average(head, curr->getNext(), averag+curr->getStudent()->getGpa(), count);
   }
