@@ -9,16 +9,14 @@ using namespace std;
  * Date: January 24, 2022
  */
 
-void add(Node * &head, Node * prev, Node * cur, Student * newS, int id);
+void add(Node * &head, Node * prev, Node * cur, Student * newS);
 void print(Node * head);
-void delet(Node * &head);
+void delet(Node * &head, Node* prev, Node* curr, int id);
 void average(Node * head, Node * curr, float averag, int count);
 
 int main(){
   Node* head = NULL;
   bool running = true;
-  int idPos=0;
-  int idPosPrev=0;
   char command[10];
   char ADD[] = "ADD";
   char PRINT[] = "PRINT";
@@ -56,53 +54,45 @@ int main(){
       cout << "Enter the student ID:" << endl;
       cin >> id;
       cin.get();
-      /*//Make sure that the ID is not currently in use     
-      for (int i=0; i<list.size(); i++) {
-        while (id == list[i].id) {
-          cout << "Please enter a unique ID number:" << endl;
-          cin >> id;
-          cin.get();
-        }
-	}*/
+      //Make sure that the ID is not currently in use
+      Node* current=head;
+      bool unique=false;
+      bool passed=true;
+      while(unique==false){
+	passed=true;
+	current=head;
+	while(current!=NULL){
+	  if(current->getStudent()->getId() == id){
+	    cout << "This ID has already been used please pick a different one:"<< endl;
+	    cin >> id;
+	    cin.get();
+	    passed=false;
+	  }
+	  current=current->getNext();
+	}
+	unique= passed==false ? false : true;
+      }
 	
       cout << "Enter the student's GPA:" << endl;
       cin >> gpa;
       cin.get();
       
       Student* newS = new Student(first, last, id, gpa);
-
-      Node* current = head;
-      bool found=false;
-      idPos=0;
-      idPosPrev=0;
-      if(current!=NULL){
-	idPos=gpa;
-      	if(current->getNext()==NULL){
-	  idPos=current->getStudent()->getId() < gpa ?
-	    current->getStudent()->getId() : gpa;
-	  found=true;
-	} else{
-	  idPos=0;
-	  while(current!=NULL){
-	    if(current->getStudent()->getId() < gpa &&
-	       current->getStudent()->getId() >=idPosPrev){
-	      idPosPrev=idPos;
-	      idPos=current->getStudent()->getId();
-	      found=true;
-	    }
-	    current=current->getNext();
-	  }
-	}
-      } if(found==false){
-	idPos=0;
-      }
-      add(head, head, head, newS, idPos);
+      add(head, head, head, newS);
       cout<< "Enter a command (ADD, PRINT, DELETE, AVERAGE, or QUIT):" << endl;
     } else if (strcmp(command, PRINT)==false) {
-      print(head);
+      if(head==NULL){
+	cout << "The database is empty" << endl;
+      } else{
+	print(head);
+      }
       cout<< "Enter a command (ADD, PRINT, DELETE, AVERAGE, or QUIT):" << endl;
     } else if (strcmp(command, DELETE)==false) {
-      delet(head);
+      cout<< "Enter the ID of the student you would like to delete:" << endl;
+      int deleteId=0;
+      cin >> deleteId;
+      cin.get();
+      delet(head,head,head,deleteId);
       cout<< "Enter a command (ADD, PRINT, DELETE, AVERAGE, or QUIT):" << endl;
     } else if (strcmp(command, AVERAGE)==false){
       average(head,head,0,0);
@@ -117,23 +107,24 @@ int main(){
   return 0;
 }
 
-void add(Node * &head, Node * prev, Node * curr, Student * newS, int id) {
+void add(Node * &head, Node * prev, Node * curr, Student * newS) {
   if(head==NULL){
     head = new Node(newS);
   }
   else if(curr==NULL){
     prev->setNext(new Node(newS));
   }
-  else if(id < head->getStudent()->getId()){
+  else if(newS->getId() <= head->getStudent()->getId()){
     Node* temp = head;
     head = new Node(newS);
     head->setNext(temp);
   }
-  else if(curr->getStudent()->getId() > id){
+  else if(curr->getStudent()->getId() > newS->getId()){
     prev->setNext(new Node(newS));
     prev->getNext()->setNext(curr);
-  } else{
-    add(head, curr, curr->getNext(), newS, id);
+  }
+  else{
+    add(head, curr, curr->getNext(), newS);
   }
 }
 
@@ -147,16 +138,39 @@ void print(Node * head) {
     cout.precision(2);
     cout << head->getStudent()->getGpa() << endl;
     print(head->getNext());
-  }
+  } //else{
+    //cout << "The database is empty" << endl;
+  //}
 }
 
-void delet(Node * &head) {
-  
+void delet(Node * &head, Node * prev, Node * curr, int id) {
+  if(head==NULL){
+    cout << "There are no students in the database" << endl;
+  }
+  else if(id == curr->getStudent()->getId()){
+    if(head->getNext()==NULL){
+      delete curr;
+      head=NULL;
+    }
+    else if(head==curr){
+      curr = head->getNext();
+      delete head;
+      head=curr;
+    }
+    else if(curr!=NULL){
+      Node* temp = curr->getNext();
+      delete curr;
+      prev->setNext(temp);
+    }
+  }
+  else{
+    delet(head, curr, curr->getNext(), id);
+  }
 }
 
 void average(Node * head, Node * curr, float averag, int count) {
   if(head==NULL){
-    cout << "There are no GPAs to calculate!" << endl;
+    cout << "There are no GPAs to calculate" << endl;
   } else if(head->getNext()==NULL){
     cout.setf(ios::fixed, ios::floatfield);
     cout.setf(ios::showpoint);
