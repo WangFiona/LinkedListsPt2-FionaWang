@@ -98,21 +98,25 @@ int main(){
       }
       cout<< "Enter a command (ADD, PRINT, DELETE, AVERAGE, or QUIT):" << endl;
     } else if (strcmp(command, DELETE)==false) {
-      //Ask the user for the ID they would like to delete
-      cout<< "Enter the ID of the student you would like to delete:" << endl;
-      int deleteId=0;
-      cin >> deleteId;
-      cin.get();
-      Node* cur= head;
-      while(cur!=NULL){
-	cout << cur->getStudent()->getId() << endl;
-	if(cur->getStudent()->getId()==deleteId){ found=true;}
-	cur=cur->getNext();
-      }
-      if(found==false){
-	cout << "That ID does not exist" << endl;
-      } else {
-	delet(head,head,head,deleteId);
+      if(head==NULL){ //Check if there are students in the database                       
+        cout << "The database is empty" << endl;
+      } else{
+	//Ask the user for the ID they would like to delete
+	cout<< "Enter the ID of the student you would like to delete:" << endl;
+	int deleteId=0;
+	cin >> deleteId;
+	cin.get();
+	found=false;
+	Node* cur= head;
+	while(cur!=NULL){
+	  if(cur->getStudent()->getId()==deleteId){ found=true;}
+	  cur=cur->getNext();
+	}
+	if(found==false){
+	  cout << "That ID does not exist" << endl;
+	} else {
+	  delet(head,head,head,deleteId);
+	}
       }
       cout<< "Enter a command (ADD, PRINT, DELETE, AVERAGE, or QUIT):" << endl;
     } else if (strcmp(command, AVERAGE)==false){
@@ -195,7 +199,7 @@ void delet(Node * &head, Node * prev, Node * curr, int id) {
 
 void average(Node * head, Node * curr, float averag, int count) {
   if(head==NULL){
-    cout << "There are no GPAs to calculate" << endl;
+    cout << "The database is empty" << endl;
   } else if(head->getNext()==NULL){
     cout.setf(ios::fixed, ios::floatfield);
     cout.setf(ios::showpoint);
