@@ -3,6 +3,7 @@
 #define NODE_H
 #include <iostream>
 #include "student.h"
+#include <cstring>
 
 using namespace std;
 

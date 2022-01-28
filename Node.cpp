@@ -1,5 +1,6 @@
 #include "node.h"
 #include "student.h"
+#include <cstring>
 
 /* 
  * Author: Jeffrey Teh
